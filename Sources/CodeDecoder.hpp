@@ -29,7 +29,7 @@ public:
 		// Stop and delete thread
 		_isAlive = false;
 		
-		if(!_pThread) {
+		if(_pThread) {
 			if(_pThread->joinable())
 				_pThread->join();
 			delete _pThread;
