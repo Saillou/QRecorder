@@ -52,6 +52,11 @@ cd "Ubuntu"
 create "Objects"
 create "Release"
 
+cd "Release"
+create "Tmp"
+create "Recordings"
+cd ../
+
 OutputName="QRecorder"
 declare -a Sources=(
 	"mainGUI" 
@@ -98,7 +103,7 @@ g++ -o $OutputName \
 
 # Launch
 echo "-----------"
-./$OutputName
+./$OutputName -q
 
 exit 0
 

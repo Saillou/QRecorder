@@ -33,7 +33,7 @@ public:
 			_ptrWriter = new cv::VideoWriter(fileName, encodeType, fps, sizeFrame);
 		else
 			_ptrWriter->open(fileName, encodeType, fps, sizeFrame);
-		
+
 		_fileName 		= fileName;
 		_isRecording 	= true;
 	}
@@ -48,7 +48,7 @@ public:
 	void saveFrame(const cv::Mat& frame) {
 		if(!_isRecording || !_ptrWriter || frame.empty()) 
 			return;
-		
+			
 		_ptrWriter->write(frame);
 	}
 	

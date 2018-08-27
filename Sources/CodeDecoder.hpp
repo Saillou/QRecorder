@@ -114,8 +114,23 @@ private:
 			qrCodeData = res.substr(pos+1);
 	}
 	
-	void _decodeUbuntu(const cv::Mat& /*imgGray*/, std::string& qrCodeData) {
+	void _decodeUbuntu(const cv::Mat& imgGray, std::string& qrCodeData) {
 		qrCodeData = "";
+		
+		// Call zbar
+		cv::imwrite("Tmp/temp.bmp", imgGray);
+		system("zbarimg -q Tmp/temp.bmp > Tmp/resTmp.txt");
+		
+		// Read console destination txt
+		std::string res;
+		std::ifstream resFile("Tmp/resTmp.txt");
+		resFile >> res;
+		resFile.close();
+		
+		// Formate result
+		size_t pos = res.find(':');
+		if(pos != std::string::npos)
+			qrCodeData = res.substr(pos+1);
 	}
 
 };

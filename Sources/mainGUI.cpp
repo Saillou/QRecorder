@@ -46,10 +46,12 @@ int main(int argc, char* argv[]) {
 	CodeDecoder decoder;
 	
 	// ------ Loop it ------	
-	while(cv::waitKey(10) != 27) { // Escape key
+	while(cv::waitKey(1) != 27) { // Escape key
 		cap >> frame;
 		if(frame.empty()) 
 			continue;
+		
+		cv::Mat frameRaw = frame.clone();
 		
 		// - Decode
 		std::string qrCodeData = decoder.decode(frame(ZONE));
@@ -65,13 +67,13 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		
-		// - Recording
-		if(writer.isRecording())
-			writer.saveFrame(frame);
-		
 		// - Screen display
 		cv::rectangle(frame, ZONE, writer.isRecording() ? cv::Scalar(0,0,255) : cv::Scalar(0,255,0), 2);
 		cv::imshow("Camera", frame);
+		
+		// - Recording
+		if(writer.isRecording())
+			writer.saveFrame(frameRaw);
 		
 		// - Console display
 		if(VOLUBILE) {
