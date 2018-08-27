@@ -2,6 +2,7 @@
 #define CHRONOMETRE_HPP
 
 #include <chrono>
+#include <time.h>
 
 struct Chronometre {	
 public:
@@ -45,8 +46,14 @@ public:
 		time_t rawtime = time(NULL);
 		struct tm timeInfo;
 		
+#ifdef _WIN32
 		localtime_s(&timeInfo, &rawtime);
-		
+#else
+		struct tm *ptrTimeInfo;
+		ptrTimeInfo = localtime(&rawtime);
+		timeInfo = *ptrTimeInfo;
+#endif
+
 		auto __int2paddedStr = [](const int _int, const size_t pad) {
 			std::string intstr = std::to_string(_int);
 			if(intstr.size() >= pad)
