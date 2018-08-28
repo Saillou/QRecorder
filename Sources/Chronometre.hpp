@@ -37,7 +37,7 @@ public:
 	}
 	
 	// Static methods
-	static void wait(int ms) {
+	static void wait(int64_t ms) {
 		_timePoint c0 = _now();
 		while(_diffMs(c0, _now()) < ms);
 	}
